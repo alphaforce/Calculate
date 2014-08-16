@@ -4,10 +4,10 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
 
-public class CalcalateService extends IntentService {
+public class CalculateService extends IntentService {
 	
 
-	public CalcalateService(String name) {
+	public CalculateService(String name) {
 		super(name);
 	}
 

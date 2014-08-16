@@ -24,7 +24,7 @@
         </activity>
 
         <service
-            android:name=".CalcalateService"
+            android:name=".CalculateService"
             android:exported="false" >
         </service>
     </application>
