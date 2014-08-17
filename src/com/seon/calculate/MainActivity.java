@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
-    private final static  String TAG = "CalculateService";
+    private final static  String TAG = "MainActivity";
     private EditText mParam1EditText;
     private EditText mParam2EditText;
     private Button mCalculateBtn;
@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
                 if (param1.isEmpty() || param2.isEmpty()) {
                     dialog(0);
                 } else {
-                    if (Integer.valueOf(param2) == 0) {
+                    if (Double.valueOf(param2) == 0) {
                         dialog(1);
                     } else {
                         mPrefs.edit().putString(Params.PARAMS_1, param1)

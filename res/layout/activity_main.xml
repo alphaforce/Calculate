@@ -21,7 +21,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:ems="10"
-            android:inputType="number">
+            android:inputType="numberDecimal">
 
         <requestFocus/>
     </EditText>
@@ -42,7 +42,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:ems="10"
-            android:inputType="number"/>
+            android:inputType="numberDecimal"/>
+
 
     <Button
             android:id="@+id/calcalate_btn"
