@@ -6,9 +6,9 @@
     <string name="param_1_desc">第一个数字：</string>
     <string name="param_2_desc">第二个数字：</string>
 
-    <string name="sum">加</string>
-    <string name="sub">减</string>
-    <string name="mul">乘</string>
-    <string name="dec">除</string>
+    <string name="sum">加:</string>
+    <string name="sub">减:</string>
+    <string name="mul">乘:</string>
+    <string name="dec">除:</string>
 
 </resources>

@@ -1,6 +1,5 @@
 package com.seon.calculate;
 
-import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -8,18 +7,16 @@ import android.content.*;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
+    private final static  String TAG = "CalculateService";
     private EditText mParam1EditText;
     private EditText mParam2EditText;
-    private Button mCalcalateBtn;
-
-    private BroadcastReceiver mBootStartReceiver;
+    private Button mCalculateBtn;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +25,13 @@ public class MainActivity extends Activity {
 
         mParam1EditText = (EditText) findViewById(R.id.param_1);
         mParam2EditText = (EditText) findViewById(R.id.param_2);
-        mCalcalateBtn = (Button) findViewById(R.id.calcalate_btn);
 
-        mCalcalateBtn.setOnClickListener(new View.OnClickListener() {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mParam1EditText.setText(mPrefs.getString(Params.PARAMS_1, ""));
+        mParam2EditText.setText(mPrefs.getString(Params.PARAMS_2, ""));
+
+        mCalculateBtn = (Button) findViewById(R.id.calcalate_btn);
+        mCalculateBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -42,9 +43,8 @@ public class MainActivity extends Activity {
                     if (Integer.valueOf(param2) == 0) {
                         dialog(1);
                     } else {
-                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        prefs.edit().putString(Params.PARAMS_1, param1)
-                                .putString(Params.PARAMS_1, param2)
+                        mPrefs.edit().putString(Params.PARAMS_1, param1)
+                                .putString(Params.PARAMS_2, param2)
                                 .commit();
 
                         Intent service = new Intent(MainActivity.this, CalculateService.class);
