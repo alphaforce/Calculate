@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Calculate</string>
-	<string name="calculate">Calculate</string>
+	<string name="calculate">计算结果</string>
     <string name="param_1_desc">第一个数字：</string>
     <string name="param_2_desc">第二个数字：</string>
 

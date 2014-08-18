@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
-    private final static  String TAG = "MainActivity";
+    private final static String TAG = "MainActivity";
     private EditText mParam1EditText;
     private EditText mParam2EditText;
     private Button mCalculateBtn;
@@ -22,13 +22,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mParam1EditText = (EditText) findViewById(R.id.param_1);
         mParam2EditText = (EditText) findViewById(R.id.param_2);
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mParam1EditText.setText(mPrefs.getString(Params.PARAMS_1, ""));
-        mParam2EditText.setText(mPrefs.getString(Params.PARAMS_2, ""));
+        setIntentParams(this.getIntent());
 
         mCalculateBtn = (Button) findViewById(R.id.calcalate_btn);
         mCalculateBtn.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +38,7 @@ public class MainActivity extends Activity {
                 if (param1.isEmpty() || param2.isEmpty()) {
                     dialog(0);
                 } else {
-                    if (Double.valueOf(param2) == 0) {
+                    if (Integer.valueOf(param2) == 0) {
                         dialog(1);
                     } else {
                         mPrefs.edit().putString(Params.PARAMS_1, param1)
@@ -53,6 +51,22 @@ public class MainActivity extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntentParams(intent);
+    }
+
+    private void setIntentParams(Intent intent){
+        Bundle data = intent.getExtras();
+        if(data != null){
+            boolean flag = data.getBoolean(Params.NOTIFICATION_FLAG, false);
+            if(flag){
+                mParam1EditText.setText(mPrefs.getString(Params.PARAMS_1, ""));
+                mParam2EditText.setText(mPrefs.getString(Params.PARAMS_2, ""));
+            }
+        }
     }
 
     private void dialog(final int errorCode) {
