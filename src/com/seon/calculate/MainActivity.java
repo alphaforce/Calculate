@@ -35,19 +35,17 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 String param1 = mParam1EditText.getText().toString();
                 String param2 = mParam2EditText.getText().toString();
-                if (param1.isEmpty() || param2.isEmpty()) {
-                    dialog(0);
-                } else {
-                    if (Integer.valueOf(param2) == 0) {
-                        dialog(1);
-                    } else {
-                        mPrefs.edit().putString(Params.PARAMS_1, param1)
-                                .putString(Params.PARAMS_2, param2)
-                                .commit();
 
-                        Intent service = new Intent(MainActivity.this, CalculateService.class);
-                        startService(service);
-                    }
+                int resultCode = checkInt(param1,param2);
+                if(resultCode == 0){
+                    mPrefs.edit().putInt(Params.PARAMS_1, Integer.parseInt(param1))
+                            .putInt(Params.PARAMS_2, Integer.parseInt(param2))
+                            .commit();
+
+                    Intent service = new Intent(MainActivity.this, CalculateService.class);
+                    startService(service);
+                }else {
+                    dialog(resultCode);
                 }
             }
         });
@@ -63,29 +61,49 @@ public class MainActivity extends Activity {
         if(data != null){
             boolean flag = data.getBoolean(Params.NOTIFICATION_FLAG, false);
             if(flag){
-                mParam1EditText.setText(mPrefs.getString(Params.PARAMS_1, ""));
-                mParam2EditText.setText(mPrefs.getString(Params.PARAMS_2, ""));
+                mParam1EditText.setText(String.valueOf(mPrefs.getInt(Params.PARAMS_1, 0)));
+                mParam2EditText.setText(String.valueOf(mPrefs.getInt(Params.PARAMS_2, 1)));
             }
         }
     }
 
-    private void dialog(final int errorCode) {
+    private void dialog(int errorCode) {
         AlertDialog.Builder builder = new Builder(MainActivity.this);
-        String errorTip = null;
-        if (errorCode == 0) {
-            errorTip = "参数不能为空，请重新输入";
-        } else if (errorCode == 1) {
-            errorTip = "第二个数字不能为0，请重新输入";
+        String warning = null;
+        if (errorCode == 1) {
+            warning = "参数不能为空，请重新输入";
+        } else if (errorCode == 2) {
+            warning = "第二个数字不能为0，请重新输入";
+        }else if(errorCode == 3){
+            warning = "输入数字过大，请重新输入";
         }
-        builder.setMessage(errorTip);
+        builder.setMessage(warning);
         builder.setTitle("提示");
         builder.setPositiveButton("确认", new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                if (errorCode == 1) mParam2EditText.setText("");
             }
         });
         builder.create().show();
+    }
+
+    private static int checkInt(String param1,String param2){
+        int resultCode = 0;
+        if(param1.isEmpty() || param2.isEmpty()){
+            resultCode = 1;
+        }else{
+            try {
+                int p1 = Integer.parseInt(param1);
+                int p2 = Integer.parseInt(param2);
+
+                if(p2 == 0){
+                    resultCode = 2;
+                }
+            }catch (NumberFormatException e){
+                resultCode = 3;
+            }
+        }
+        return resultCode;
     }
 }

@@ -25,13 +25,10 @@ public class CalculateService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
-        String param1 = prefs.getString(Params.PARAMS_1, "0");
-        String param2 = prefs.getString(Params.PARAMS_2, "1");
+        int param1 = prefs.getInt(Params.PARAMS_1, 0);
+        int param2 = prefs.getInt(Params.PARAMS_2, 1);
 
-        int p1 = Integer.valueOf(param1);
-        int p2 = Integer.valueOf(param2);
-
-        sendNotification(p1, p2);
+        sendNotification(param1, param2);
     }
 
     public void sendNotification(int param1, int param2) {
@@ -59,6 +56,7 @@ public class CalculateService extends IntentService {
         Bundle data = new Bundle();
         data.putBoolean(Params.NOTIFICATION_FLAG, true);
         intent.putExtras(data);
+
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mBuilder.setContentIntent(PendingIntent.getActivity(getApplicationContext(),
                 NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT));
