@@ -56,8 +56,8 @@ public class CalculateService extends IntentService {
         Bundle data = new Bundle();
         data.putBoolean(Params.NOTIFICATION_FLAG, true);
         intent.putExtras(data);
-
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
         mBuilder.setContentIntent(PendingIntent.getActivity(getApplicationContext(),
                 NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
