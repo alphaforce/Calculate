@@ -34,7 +34,7 @@ public class CalculateService extends IntentService {
     public void sendNotification(int param1, int param2) {
         int sum = param1 + param2;
         int sub = param1 - param2;
-        int mul = param1 * param2;
+        long mul = param1 * (long) param2;
         double dec = (double) param1 / param2;
         Log.i(TAG, sum + " " + sub + " " + mul + " " + dec);
         Notification.Builder mBuilder = new Notification.Builder(getApplication());
@@ -70,4 +70,5 @@ public class CalculateService extends IntentService {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
 }
