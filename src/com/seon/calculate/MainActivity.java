@@ -13,6 +13,11 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
     private final static String TAG = "MainActivity";
+    private final static int RESULT_OK = 0;
+    private final static int RESULT_EMPTY = 1;
+    private final static int RESULT_IS_ZERO = 2;
+    private final static int RESULT_TO_LARGE = 3;
+
     private EditText mParam1EditText;
     private EditText mParam2EditText;
     private Button mCalculateBtn;
@@ -37,7 +42,7 @@ public class MainActivity extends Activity {
                 String param2 = mParam2EditText.getText().toString();
 
                 int resultCode = checkInt(param1,param2);
-                if(resultCode == 0){
+                if(resultCode == RESULT_OK){
                     mPrefs.edit().putInt(Params.PARAMS_1, Integer.parseInt(param1))
                             .putInt(Params.PARAMS_2, Integer.parseInt(param2))
                             .commit();
@@ -45,7 +50,7 @@ public class MainActivity extends Activity {
                     Intent service = new Intent(MainActivity.this, CalculateService.class);
                     startService(service);
                 }else {
-                    dialog(resultCode);
+                    alert(resultCode);
                 }
             }
         });
@@ -67,14 +72,14 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void dialog(int errorCode) {
+    private void alert(int errorCode) {
         AlertDialog.Builder builder = new Builder(MainActivity.this);
         String warning = null;
-        if (errorCode == 1) {
+        if (errorCode == RESULT_EMPTY) {
             warning = "参数不能为空，请重新输入";
-        } else if (errorCode == 2) {
+        } else if (errorCode == RESULT_IS_ZERO) {
             warning = "第二个数字不能为0，请重新输入";
-        }else if(errorCode == 3){
+        }else if(errorCode == RESULT_TO_LARGE){
             warning = "输入数字过大，请重新输入";
         }
         builder.setMessage(warning);
@@ -88,7 +93,7 @@ public class MainActivity extends Activity {
         builder.create().show();
     }
 
-    private static int checkInt(String param1,String param2){
+    private int checkInt(String param1,String param2){
         int resultCode = 0;
         if(param1.isEmpty() || param2.isEmpty()){
             resultCode = 1;
