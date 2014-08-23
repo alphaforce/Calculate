@@ -23,11 +23,7 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".CalculateService"
-            >
-            <category android:name="android.intent.category.LAUNCHER"/>
-        </service>
+        <service android:name=".CalculateService" />
 
         <receiver android:name=".BootReceiver">
             <intent-filter>
