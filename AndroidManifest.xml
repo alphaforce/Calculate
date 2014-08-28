@@ -23,9 +23,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".CalculateService" />
+        <service android:name=".service.CalculateService" />
 
-        <receiver android:name=".BootReceiver">
+        <receiver android:name=".broadcast.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
