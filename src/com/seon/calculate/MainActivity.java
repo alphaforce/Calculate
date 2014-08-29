@@ -1,4 +1,4 @@
-package com.seon.calculate.activity;
+package com.seon.calculate;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -78,11 +78,11 @@ public class MainActivity extends Activity {
     private void alert(int errorCode) {
         AlertDialog.Builder builder = new Builder(MainActivity.this);
         String warning = null;
-        if (errorCode == RESULT_EMPTY) {
+        if (errorCode == RESULT_IS_EMPTY) {
             warning = "参数不能为空，请重新输入";
         } else if (errorCode == RESULT_IS_ZERO) {
             warning = "第二个数字不能为0，请重新输入";
-        }else if(errorCode == RESULT_TO_LARGE){
+        }else if(errorCode == RESULT_TOO_LARGE){
             warning = "输入数字过大，请重新输入";
         }
         builder.setMessage(warning);
