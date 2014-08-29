@@ -1,4 +1,4 @@
-package com.seon.calculate;
+package com.seon.calculate.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,13 +10,16 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.seon.calculate.service.CalculateService;
+import com.seon.calculate.R;
+import com.seon.calculate.common.Params;
 
 public class MainActivity extends Activity {
     private final static String TAG = "MainActivity";
     private final static int RESULT_OK = 0;
-    private final static int RESULT_EMPTY = 1;
+    private final static int RESULT_IS_EMPTY = 1;
     private final static int RESULT_IS_ZERO = 2;
-    private final static int RESULT_TO_LARGE = 3;
+    private final static int RESULT_TOO_LARGE = 3;
 
     private EditText mParam1EditText;
     private EditText mParam2EditText;
