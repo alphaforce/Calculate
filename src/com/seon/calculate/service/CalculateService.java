@@ -13,7 +13,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 import com.seon.calculate.R;
-import com.seon.calculate.activity.MainActivity;
+import com.seon.calculate.MainActivity;
 import com.seon.calculate.common.Params;
 
 public class CalculateService extends IntentService {
