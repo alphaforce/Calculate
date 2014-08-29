@@ -14,7 +14,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import com.seon.calculate.R;
 import com.seon.calculate.MainActivity;
-import com.seon.calculate.common.Params;
+import com.seon.calculate.common.Constants;
 
 public class CalculateService extends IntentService {
     private final static String TAG = "CalculateService";
@@ -27,8 +27,8 @@ public class CalculateService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
-        int param1 = prefs.getInt(Params.PARAMS_1, 0);
-        int param2 = prefs.getInt(Params.PARAMS_2, 1);
+        int param1 = prefs.getInt(Constants.PARAMS_1, 0);
+        int param2 = prefs.getInt(Constants.PARAMS_2, 1);
 
         sendNotification(param1, param2);
     }
@@ -56,7 +56,7 @@ public class CalculateService extends IntentService {
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         Bundle data = new Bundle();
-        data.putBoolean(Params.NOTIFICATION_FLAG, true);
+        data.putBoolean(Constants.NOTIFICATION_FLAG, true);
         intent.putExtras(data);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 

@@ -10,9 +10,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.seon.calculate.common.Constants;
 import com.seon.calculate.service.CalculateService;
-import com.seon.calculate.R;
-import com.seon.calculate.common.Params;
 
 public class MainActivity extends Activity {
     private final static String TAG = "MainActivity";
@@ -46,8 +45,8 @@ public class MainActivity extends Activity {
 
                 int resultCode = checkInt(param1,param2);
                 if(resultCode == RESULT_OK){
-                    mPrefs.edit().putInt(Params.PARAMS_1, Integer.parseInt(param1))
-                            .putInt(Params.PARAMS_2, Integer.parseInt(param2))
+                    mPrefs.edit().putInt(Constants.PARAMS_1, Integer.parseInt(param1))
+                            .putInt(Constants.PARAMS_2, Integer.parseInt(param2))
                             .commit();
 
                     Intent service = new Intent(MainActivity.this, CalculateService.class);
@@ -67,10 +66,10 @@ public class MainActivity extends Activity {
     private void setIntentParams(Intent intent){
         Bundle data = intent.getExtras();
         if(data != null){
-            boolean flag = data.getBoolean(Params.NOTIFICATION_FLAG, false);
+            boolean flag = data.getBoolean(Constants.NOTIFICATION_FLAG, false);
             if(flag){
-                mParam1EditText.setText(String.valueOf(mPrefs.getInt(Params.PARAMS_1, 0)));
-                mParam2EditText.setText(String.valueOf(mPrefs.getInt(Params.PARAMS_2, 1)));
+                mParam1EditText.setText(String.valueOf(mPrefs.getInt(Constants.PARAMS_1, 0)));
+                mParam2EditText.setText(String.valueOf(mPrefs.getInt(Constants.PARAMS_2, 1)));
             }
         }
     }
